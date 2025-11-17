@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .form-header h1 {
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .form-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        .form-section {
+            margin-bottom: 30px;
+        }
+        .form-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+        .form-group label {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .form-check-label {
+            margin: 0;
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+        .alert-success {
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .section-icon {
+            margin-right: 8px;
+            color: #667eea;
+        }
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .form-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h1><i class="fas fa-users-cog section-icon"></i>Employee Registration Form</h1>
+            <p>Add a new employee to your company</p>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- Personal Information Section -->
+            <div class="form-section">
+                <div class="form-section-title"><i class="fas fa-user section-icon"></i>Personal Information</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_firstname">First Name *</label>
+                        {{ form.firstname }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_lastname">Last Name *</label>
+                        {{ form.lastname }}
+                    </div>
+                </div>
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="id_email">Email Address</label>
+                        {{ form.email }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_phone">Phone Number</label>
+                        {{ form.phone }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Information Section -->
+            <div class="form-section">
+                <div class="form-section-title"><i class="fas fa-briefcase section-icon"></i>Job Information</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_role">Role *</label>
+                        {{ form.role }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_department">Department</label>
+                        {{ form.department }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_working_hours">Working Hours</label>
+                        {{ form.working_hours }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_joined_date">Joined Date *</label>
+                        {{ form.joined_date }}
+                    </div>
+                </div>
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="id_salary">Salary (Optional)</label>
+                        {{ form.salary }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Section -->
+            <div class="form-section">
+                <div class="form-section-title"><i class="fas fa-toggle-on section-icon"></i>Status</div>
+                <div class="form-check">
+                    {{ form.is_active }}
+                    <label class="form-check-label" for="id_is_active">
+                        Employee is Active
+                    </label>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-plus-circle"></i> Add Employee
+            </button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
