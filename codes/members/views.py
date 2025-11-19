@@ -11,6 +11,6 @@ def members(request):
   else:
     form = EmployeeForm()
   
-  template = loader.get_template('myfirst.html')
+  template = loader.get_template('index.html')
   context = {'form': form}
   return HttpResponse(template.render(context, request))
